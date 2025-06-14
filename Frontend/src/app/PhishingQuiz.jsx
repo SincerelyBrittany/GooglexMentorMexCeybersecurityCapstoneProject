@@ -197,6 +197,107 @@
 
 
 // PhishingQuiz.jsx
+// import React, { useState, useEffect } from 'react';
+// import { Container, Label, Input, Button } from './styled-components';
+
+// function shuffleArray(array) {
+//   return [...array].sort(() => Math.random() - 0.5);
+// }
+
+// const PhishingQuiz = () => {
+//   const [email, setEmail] = useState('');
+//   const [questions, setQuestions] = useState([]);
+//   const [current, setCurrent] = useState(0);
+//   const [selected, setSelected] = useState('');
+//   const [score, setScore] = useState(0);
+//   const [missed, setMissed] = useState([]);
+//   const [submitted, setSubmitted] = useState(false);
+
+//   useEffect(() => {
+//     const loadQuestions = async () => {
+//       const res = await fetch('http://127.0.0.1:5000/questions');
+//       const data = await res.json();
+//       const randomThree = shuffleArray(data).slice(0, 3);
+//       setQuestions(randomThree);
+//     };
+//     loadQuestions();
+//   }, []);
+
+//   const handleNext = () => {
+//     const currentQ = questions[current];
+//     if (selected === currentQ.correct) {
+//       setScore(score + 1);
+//     } else {
+//       setMissed([...missed, currentQ.missed_warning]);
+//     }
+//     setSelected('');
+//     if (current < questions.length - 1) {
+//       setCurrent(current + 1);
+//     } else {
+//       submitResults();
+//     }
+//   };
+
+//   const submitResults = async () => {
+//     await fetch('http://127.0.0.1:5000/submit', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ email, score, missed_warning: missed.join('; ') })
+//     });
+//     setSubmitted(true);
+//   };
+
+//   if (submitted) {
+//     return (
+//       <Container>
+//         <h2>Thanks for completing the quiz!</h2>
+//         <p>Your score: {score} / {questions.length}</p>
+//         <p>Warnings missed: {missed.join(', ')}</p>
+//       </Container>
+//     );
+//   }
+
+//   if (questions.length === 0) return <Container><p>Loading questions...</p></Container>;
+
+//   const q = questions[current];
+
+//   return (
+//     <Container>
+//       <h2>Phishing Quiz</h2>
+//       {/* {current === 0 && (
+//         <Label>Email:
+//           <Input
+//             type="email"
+//             value={email}
+//             onChange={(e) => setEmail(e.target.value)}
+//             required
+//           />
+//         </Label>
+//       )} */}
+
+//       <p>{q.question}</p>
+//       {Object.entries(q.options).map(([key, val]) => (
+//         <Label key={key}>
+//           <Input
+//             type="radio"
+//             name="option"
+//             value={key}
+//             checked={selected === key}
+//             onChange={(e) => setSelected(e.target.value)}
+//           />{' '}{val}
+//         </Label>
+//       ))}
+
+//       <Button onClick={handleNext} disabled={!selected}>
+//         {current === questions.length - 1 ? 'Submit' : 'Next'}
+//       </Button>
+//     </Container>
+//   );
+// };
+
+// export default PhishingQuiz;
+
+
 import React, { useState, useEffect } from 'react';
 import { Container, Label, Input, Button } from './styled-components';
 
@@ -257,7 +358,7 @@ const PhishingQuiz = () => {
     );
   }
 
-  if (questions.length === 0) return <Container><p>Loading questions...</p></Container>;
+  if (questions.length === 0) return <p>Loading questions...</p>;
 
   const q = questions[current];
 
